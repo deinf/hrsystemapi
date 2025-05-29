@@ -34,7 +34,7 @@ This is a **Flask-based Employee Management System** designed to manage HR opera
 1. **Clone Repository**
 
    ```bash
-   git clone [https://github.com/deinf/hrsystemapi.git](https://github.com/deinf/hrsystemapi.git)
+   git clone https://github.com/deinf/hrsystemapi.git
    cd hrsystemapi
    ```
 2. **Create Virtual Environment**
