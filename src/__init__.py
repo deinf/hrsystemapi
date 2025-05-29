@@ -11,12 +11,17 @@ from src.utils.decorators import CustomJSONProvider
 from flasgger import Swagger
 from src.config.swagger_config import swagger_template, swagger_config
 
+from flask_cors import CORS
+
+
 load_dotenv()
 migrate = None
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.json = CustomJSONProvider(app)
+    
+    CORS(app)
     
     if test_config is None:
         app.config.from_mapping(
