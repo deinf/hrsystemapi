@@ -34,8 +34,8 @@ This is a **Flask-based Employee Management System** designed to manage HR opera
 1. **Clone Repository**
 
    ```bash
-   git clone https://github.com/yourusername/employee-management-system.git
-   cd employee-management-system
+   git clone [https://github.com/deinf/hrsystemapi.git](https://github.com/deinf/hrsystemapi.git)
+   cd hrsystemapi
    ```
 2. **Create Virtual Environment**
 
@@ -52,10 +52,11 @@ This is a **Flask-based Employee Management System** designed to manage HR opera
    Create a `.env` file:
 
    ```env
-   FLASK_APP=run.py
-   FLASK_ENV=development
-   SECRET_KEY=your-secret-key
-   DATABASE_URL=sqlite:///database.db  # Or PostgreSQL URI
+   FLASK_APP=src
+   FLASK_DEBUG=True
+   JWT_SECRET_KEY=your-secret-key
+   db_path=sqlite:///database.db  # Or PostgreSQL URI
+   admin_password='your-admin-pasword'
    ```
 5. **Run Migrations**
 
@@ -69,6 +70,12 @@ This is a **Flask-based Employee Management System** designed to manage HR opera
    ```bash
    flask run
    ```
+   api is located on:
+
+   ```
+   http://localhost:5000/api/v1/
+   ```
+   
 
 ---
 
@@ -78,46 +85,50 @@ You can use this as a dev checklist for what's implemented or still pending:
 
 ### ✅ Authentication
 
-- [X] `POST /api/register` – Register a new user
-- [X] `POST /api/login` – Login and get JWT/token
+- [X] Login and get JWT/token
+- [X] Refresh Token
 
 ### 👥 Employees
 
-- [X] `GET /api/employees` – List all employees
-- [X] `POST /api/employees` – Add a new employee
-- [ ] `PUT /api/employees/<id>` – Update employee
-- [ ] `DELETE /api/employees/<id>` – Delete/soft-delete employee
+- [X] List all employees
+- [X] Add a new employee
+- [x] Update employee
+- [x] Delete employee
 
 ### 🏢 Departments
 
-- [X] `GET /api/departments` – List departments
-- [X] `POST /api/departments` – Add new department
-- [ ] `PUT /api/departments/<id>` – Update department
-- [ ] `DELETE /api/departments/<id>` – Delete department
+- [X] List departments
+- [X] Add new department
+- [x] Update department
+- [x] Delete department
 
 ### 🕒 Attendance
 
-- [X] `POST /api/attendance` – Mark check-in/out
-- [ ] `GET /api/attendance/<employee_id>` – View attendance records
+- [X] Mark check-in/out
+- [x] View attendance records
+- [x] Delete attendance record
 
 ### 🌴 Leave
 
-- [X] `POST /api/leave` – Apply for leave
-- [ ] `GET /api/leave/<employee_id>` – View leave history
-- [ ] `PUT /api/leave/<id>` – Approve/Reject leave
+- [X] Apply for leave
+- [x] View leave history
+- [x] Approve/Reject leave
+- [x] Delete leave record
 
 ### 💵 Payroll
 
-- [X] `GET /api/payroll/<employee_id>` – Get payroll details
-- [X] `POST /api/payroll` – Add payroll entry
-- [ ] `PUT /api/payroll/<id>` – Update payroll
-- [ ] `GET /api/payroll/all` – View all payroll entries (admin)
+- [X] Add payroll entry
+- [x] Delete payroll
+- [x] View all payroll entries (admin)
 
 ### 📈 Performance
 
-- [X] `POST /api/performance` – Submit performance review
-- [ ] `GET /api/performance/<employee_id>` – View reviews
-- [ ] `PUT /api/performance/<id>` – Edit review
+- [X] Submit performance review
+- [x] View reviews
+- [x] Edit review
+- [x] Delete review
+
+Soon to be added
 
 ---
 
@@ -133,15 +144,11 @@ http://localhost:5000/
 
 ## 📬 Contact
 
-**Your Name**
-GitHub: [@yourusername](https://github.com/yourusername)
-Email: yourname@example.com
+**Danang Eka Saputra**
+GitHub: [@deinf]([https://github.com/yourusername](https://github.com/deinf))
+Email: danangekasaputra@outlook.com
 
 ---
-
-## 📄 License
-
-This project is open-source and available under the [MIT License](LICENSE).
 
 Swagger UI is available at:
 
