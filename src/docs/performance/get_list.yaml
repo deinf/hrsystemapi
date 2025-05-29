@@ -1,0 +1,65 @@
+tags:
+  - Performance
+summary: Get performance records
+description: |
+  Retrieve a paginated list of performance reviews.
+  - **Admins** can see all.
+  - **Employees** can only see their own.
+parameters:
+  - in: formData
+    name: page
+    type: integer
+    required: false
+    default: 1
+    description: Page number
+  - in: formData
+    name: per_page
+    type: integer
+    required: false
+    default: 10
+    description: Records per page
+  - in: formData
+    name: sort_by
+    type: string
+    enum: [created_at, rating, review_date]
+    default: created_at
+    description: Field to sort by
+  - in: formData
+    name: sort_order
+    type: string
+    enum: [asc, desc]
+    default: desc
+    description: Sort order
+  - in: formData
+    name: keyword
+    type: string
+    required: false
+    description: Filter by keyword in feedback or employee_id
+responses:
+  200:
+    description: List of performance records
+    examples:
+      application/json:
+        items:
+          - id: 1
+            employee:
+              employee_id: 101
+              first_name: Alice
+              last_name: Doe
+              position: Developer
+              department: Engineering
+            review_date: 2024-06-01
+            rating: 4
+            feedback: Great performance
+            created_at: 2024-06-01T09:00:00
+            updated_at: 2024-06-01T09:30:00
+        total: 1
+        page: 1
+        pages: 1
+        has_next: false
+        has_prev: false
+  403:
+    description: Unauthorized access
+    examples:
+      application/json:
+        msg: Unauthorized access

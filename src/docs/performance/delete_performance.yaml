@@ -1,0 +1,26 @@
+tags:
+  - Performance
+summary: Delete a performance record (Admin only)
+description: Deletes a performance review by ID. **Admin only.**
+parameters:
+  - in: formData
+    name: performance_id
+    type: string
+    required: true
+    description: ID of the performance record
+responses:
+  200:
+    description: Performance record deleted
+    examples:
+      application/json:
+        msg: Performance record deleted
+  404:
+    description: Record not found
+    examples:
+      application/json:
+        msg: Record not found
+  403:
+    description: Unauthorized or employee is deleted
+    examples:
+      application/json:
+        msg: Unauthorized access

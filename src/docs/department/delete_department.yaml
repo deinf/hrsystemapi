@@ -1,0 +1,20 @@
+tags:
+  - Department
+summary: Delete a department by ID (Admin only)
+parameters:
+  - in: formData
+    name: id
+    type: string
+    required: true
+    description: Department ID to delete
+responses:
+  200:
+    description: Department deleted
+    examples:
+      application/json:
+        message: Data Deleted
+  404:
+    description: Department not found
+    examples:
+      application/json:
+        message: Departement not found

@@ -1,0 +1,37 @@
+tags:
+  - User
+summary: Edit own user profile
+description: Allows a user to update their own profile information.
+parameters:
+  - in: formData
+    name: first_name
+    type: string
+    required: false
+    description: First name
+  - in: formData
+    name: last_name
+    type: string
+    required: false
+    description: Last name
+  - in: formData
+    name: phone
+    type: string
+    required: false
+    description: Phone number
+responses:
+  201:
+    description: Profile updated successfully
+    examples:
+      application/json:
+        message: updated
+        data: {}
+  400:
+    description: Unable to process
+    examples:
+      application/json:
+        message: Unable to process
+  404:
+    description: User not found
+    examples:
+      application/json:
+        message: User not found

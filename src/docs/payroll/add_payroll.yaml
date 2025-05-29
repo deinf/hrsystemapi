@@ -1,0 +1,64 @@
+tags:
+  - Payroll
+summary: Add payroll record (Admin Only)
+description: Create a new payroll record for an employee. **Admin only**.
+parameters:
+  - in: formData
+    name: employee_id
+    type: string
+    required: true
+    description: ID of the employee
+  - in: formData
+    name: base_salary
+    type: number
+    format: float
+    required: true
+    description: Base salary amount
+  - in: formData
+    name: bonus
+    type: number
+    format: float
+    required: false
+    description: Bonus amount
+  - in: formData
+    name: deductions
+    type: number
+    format: float
+    required: false
+    description: Deduction amount
+  - in: formData
+    name: net_salary
+    type: number
+    format: float
+    required: true
+    description: Final net salary after adjustments
+  - in: formData
+    name: pay_date
+    type: string
+    format: date
+    required: true
+    description: Payroll date in YYYY-MM-DD format
+responses:
+  200:
+    description: Payroll record created
+    examples:
+      application/json:
+        message: Data Created
+        data:
+          id: 123
+          employee_id: 12
+          base_salary: 5000
+          bonus: 200
+          deductions: 100
+          net_salary: 5100
+          pay_date: 2024-05-01
+  400:
+    description: Missing or invalid input
+    examples:
+      application/json:
+        message: Missing required fields
+  403:
+    description: Unauthorized access
+    examples:
+      application/json:
+        msg: Admin access required

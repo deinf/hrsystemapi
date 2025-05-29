@@ -1,0 +1,42 @@
+tags:
+  - Leave
+summary: Apply for leave
+parameters:
+  - in: formData
+    name: leave_type
+    type: string
+    required: true
+    description: Type of leave (e.g., sick, vacation)
+  - in: formData
+    name: start_date
+    type: string
+    format: date
+    required: true
+    description: Leave start date (YYYY-MM-DD)
+  - in: formData
+    name: end_date
+    type: string
+    format: date
+    required: true
+    description: Leave end date (YYYY-MM-DD)
+  - in: formData
+    name: reason
+    type: string
+    required: false
+    description: Reason for leave
+responses:
+  201:
+    description: Leave request submitted
+    examples:
+      application/json:
+        msg: Leave request submitted
+  400:
+    description: Invalid input
+    examples:
+      application/json:
+        msg: Invalid date format. Use YYYY-MM-DD.
+  403:
+    description: Forbidden
+    examples:
+      application/json:
+        msg: Only employees can apply for leave

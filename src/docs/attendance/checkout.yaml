@@ -1,0 +1,19 @@
+tags:
+  - Attendance
+summary: Employee check-out
+responses:
+  200:
+    description: Checked out successfully
+    examples:
+      application/json:
+        msg: Checked out successfully
+  400:
+    description: Already checked out today or not checked in
+    examples:
+      application/json:
+        msg: Already checked out today
+  403:
+    description: Only employees can check out
+    examples:
+      application/json:
+        msg: Only employees can check out

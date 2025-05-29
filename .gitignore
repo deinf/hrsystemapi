@@ -1,6 +1,8 @@
 # Ignore environment files
 .env
 .flaskenv
+migrations/
+instance/
 
 # Ignore Python virtual environments
 venv/

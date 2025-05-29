@@ -1,0 +1,36 @@
+tags:
+  - Performance
+summary: Create a performance record (Admin only)
+description: Creates a new performance review for an employee. **Admin only.**
+parameters:
+  - in: formData
+    name: employee_id
+    type: string
+    required: true
+    description: ID of the employee
+  - in: formData
+    name: rating
+    type: integer
+    required: true
+    description: Performance rating (integer)
+  - in: formData
+    name: feedback
+    type: string
+    required: false
+    description: Optional textual feedback
+responses:
+  201:
+    description: Performance record created
+    examples:
+      application/json:
+        msg: Performance record created
+  400:
+    description: Missing or invalid data
+    examples:
+      application/json:
+        msg: Rating must be an integer
+  403:
+    description: Unauthorized access
+    examples:
+      application/json:
+        msg: Admin access required

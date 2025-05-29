@@ -1,0 +1,41 @@
+tags:
+  - Performance
+summary: Update a performance record (Admin only)
+description: Updates an existing performance review by ID. **Admin only.**
+parameters:
+  - in: formData
+    name: performance_id
+    type: string
+    required: true
+    description: ID of the performance record
+  - in: formData
+    name: rating
+    type: integer
+    required: false
+    description: Updated rating
+  - in: formData
+    name: feedback
+    type: string
+    required: false
+    description: Updated feedback
+responses:
+  200:
+    description: Performance record updated
+    examples:
+      application/json:
+        msg: Performance record updated
+  400:
+    description: Invalid rating
+    examples:
+      application/json:
+        msg: Invalid rating
+  404:
+    description: Record not found
+    examples:
+      application/json:
+        msg: Record not found
+  403:
+    description: Unauthorized or employee is deleted
+    examples:
+      application/json:
+        msg: Unauthorized access

@@ -1,0 +1,26 @@
+tags:
+  - Leave
+summary: Delete a leave request (Admin only)
+description: Only admins can delete leave requests.
+parameters:
+  - in: formData
+    name: leave_id
+    type: string
+    required: true
+    description: ID of the leave request to delete
+responses:
+  200:
+    description: Leave record deleted successfully
+    examples:
+      application/json:
+        msg: Leave record deleted successfully
+  404:
+    description: Leave not found
+    examples:
+      application/json:
+        msg: Leave record not found
+  403:
+    description: Forbidden
+    examples:
+      application/json:
+        msg: Only admin users can access this endpoint

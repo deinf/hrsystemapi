@@ -1,0 +1,56 @@
+tags:
+  - User
+summary: Retrieve user(s)
+description: Retrieves a list of users for admins or the user's own profile for employees.
+parameters:
+  - in: formData
+    name: page
+    type: integer
+    required: false
+    description: Page number for pagination
+  - in: formData
+    name: per_page
+    type: integer
+    required: false
+    description: Number of users per page
+  - in: formData
+    name: sort
+    type: string
+    required: false
+    description: Sort order (asc or desc)
+  - in: formData
+    name: sort_by
+    type: string
+    required: false
+    description: Field to sort by (username, email, created_at, id)
+  - in: formData
+    name: search
+    type: string
+    required: false
+    description: Search keyword (matches username, email, first name, or last name)
+responses:
+  200:
+    description: Successfully retrieved user(s)
+    examples:
+      application/json:
+        users:
+          - id: "123"
+            username: johndoe
+            email: johndoe@example.com
+            role: employee
+            employee: {}
+        total: 1
+        page: 1
+        pages: 1
+        has_next: false
+        has_prev: false
+  403:
+    description: Unauthorized access
+    examples:
+      application/json:
+        error: Unauthorized access
+  404:
+    description: User not found (employee only)
+    examples:
+      application/json:
+        error: User not found

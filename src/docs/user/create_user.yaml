@@ -1,0 +1,82 @@
+tags:
+  - User
+summary: Create a new user (Admin only)
+description: Creates a new user and associated employee record. **Admin only.**
+parameters:
+  - in: formData
+    name: username
+    type: string
+    required: true
+    description: Unique username
+  - in: formData
+    name: email
+    type: string
+    required: true
+    description: User's email address
+  - in: formData
+    name: password
+    type: string
+    required: true
+    description: User's password (minimum 6 characters)
+  - in: formData
+    name: first_name
+    type: string
+    required: true
+    description: Employee's first name
+  - in: formData
+    name: last_name
+    type: string
+    required: false
+    description: Employee's last name
+  - in: formData
+    name: phone
+    type: string
+    required: false
+    description: Employee's phone number
+  - in: formData
+    name: hire_date
+    type: string
+    required: false
+    description: Hire date (YYYY-MM-DD)
+  - in: formData
+    name: position
+    type: string
+    required: false
+    description: Employee's position
+  - in: formData
+    name: salary
+    type: number
+    required: false
+    description: Employee's salary
+  - in: formData
+    name: status
+    type: string
+    required: false
+    description: Employment status
+  - in: formData
+    name: department_id
+    type: string
+    required: false
+    description: Department ID
+  - in: formData
+    name: role
+    type: string
+    required: true
+    description: User role (admin or employee)
+responses:
+  201:
+    description: User and employee created successfully
+    examples:
+      application/json:
+        message: Employee and User account created successfully!
+        data: {}
+  400:
+    description: Invalid input
+    examples:
+      application/json:
+        message: Missing required fields
+  409:
+    description: Conflict
+    examples:
+      application/json:
+        message: Email address is already in use

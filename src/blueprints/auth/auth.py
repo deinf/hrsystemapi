@@ -5,7 +5,7 @@ from src.database.database import User, db
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required, get_jwt
 from dotenv import load_dotenv
 from sqlalchemy import or_
-
+from flasgger import swag_from
 
 import os
 load_dotenv()
@@ -27,6 +27,7 @@ def create_admin_user():
 
 
 @auth.post('/login')
+@swag_from("../../docs/auth/login.yaml")
 def login():
     identifier = ''
     password = ''
@@ -72,13 +73,18 @@ def login():
 
 @auth.post('/token/refresh')
 @jwt_required(refresh=True)
+@swag_from("../../docs/auth/refresh_token.yaml")
 def refresh():
     claims = get_jwt() 
+    role = claims.get("role")
     identity = get_jwt_identity()
-    access = create_access_token(identity=identity, additional_claims=claims)
+    access_token = create_access_token(
+        identity=identity,
+        additional_claims={"role": role, "type": "access"}
+    )
     # refresh = create_refresh_token(identity=identity, additional_claims=claims)
     
     return jsonify({
-        'access_token' : access,
+        'access_token' : access_token,
         # 'refresh_token' : refresh,
     }), http_status_code.HTTP_200_OK

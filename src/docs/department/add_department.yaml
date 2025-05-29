@@ -1,0 +1,25 @@
+tags:
+  - Department
+summary: Add a new department (Admin only)
+parameters:
+  - in: formData
+    name: nama_department
+    type: string
+    required: true
+    description: Department name
+  - in: formData
+    name: lokasi
+    type: string
+    required: false
+    description: Department location
+responses:
+  201:
+    description: Department created
+    examples:
+      application/json:
+        message: Departement data created
+  400:
+    description: Missing department name
+    examples:
+      application/json:
+        message: Missing department name fields

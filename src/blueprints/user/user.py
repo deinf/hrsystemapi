@@ -1,19 +1,20 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from src.utils.decorators import admin_only
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from src.utils.decorators import admin_only, prevent_mod_on_deleted_employee
 import validators
 from src.constants.constants import http_status_code
 from src.database.database import User, Employee, db
 from werkzeug.security import generate_password_hash
 from sqlalchemy import or_
-
+from flasgger import swag_from
 
 user = Blueprint('user', __name__, url_prefix='/api/v1/user')
 
 
-@user.post('admin/create_user')
+@user.post('/admin/create_user')
 @jwt_required()
 @admin_only
+@swag_from("../../docs/user/create_user.yaml")
 def create_user():
     data = request.form
     username = data.get('username')
@@ -97,10 +98,11 @@ def create_user():
     }), http_status_code.HTTP_201_CREATED
     
     
+
 @user.put('/admin/edit_user')
-@user.patch('/admin/edit_user')
 @jwt_required()
 @admin_only
+@swag_from("../../docs/user/admin_edit_user.yaml")
 def edit_user_admin():
     try:
         data = request.form
@@ -175,8 +177,8 @@ def edit_user_admin():
         
        
 @user.put('/edit_user')
-@user.patch('/edit_user')
 @jwt_required()
+@swag_from("../../docs/user/self_edit_user.yaml")
 def edit_user():
     try:
         data = request.form
@@ -242,6 +244,7 @@ def edit_user():
 @user.delete("/admin/delete_user")
 @jwt_required()
 @admin_only
+@swag_from("../../docs/user/delete_user.yaml")
 def delete_user():
     try:
         data = request.form
@@ -254,11 +257,14 @@ def delete_user():
                 "message" : "User not found"
             }), http_status_code.HTTP_404_NOT_FOUND
         
+        if result.employee:
+            result.employee.status = "deleted"
+        
         db.session.delete(result)
         db.session.commit()
         
         return jsonify({
-            'message': "User and associated employee deleted successfully"
+            'message': "User deleted successfully"
         }),http_status_code.HTTP_200_OK
         
     except Exception as e:
@@ -266,14 +272,82 @@ def delete_user():
             'message': 'Unable to process'
         }), http_status_code.HTTP_400_BAD_REQUEST
         
-# @user.get("/admin/get_all_user")
-# @jwt_required()
-# @admin_only
-# def get_all_user():
-    
-    
-        
-        
-    
-    
-    
+@user.get("/get_user")
+@jwt_required()
+@swag_from("../../docs/user/get_users.yaml")
+def get_all_user():
+    role = get_jwt().get("role")  
+    user_id = get_jwt_identity() 
+    data = request.form
+    page = int(data.get("page", 1))  
+    per_page = int(data.get("per_page", 10))  
+    sort_order = data.get("sort", "desc").lower()
+    sort_by = data.get("sort_by", "created_at")
+    search_term = data.get("search", "")  
+
+    sort_fields = {
+        "username": User.username,
+        "email": User.email,
+        "created_at": User.created_at,
+        "id": User.id
+    }
+    sort_column = sort_fields.get(sort_by, User.created_at)
+    order_by = sort_column.desc() if sort_order == "desc" else sort_column.asc()
+
+    query = (
+        db.session.query(User, Employee)
+        .outerjoin(Employee, User.employee_id == Employee.id)
+    )
+
+    if search_term:
+        search_filter = f"%{search_term}%"
+        query = query.filter(
+            db.or_(
+                User.email.ilike(search_filter),
+                User.username.ilike(search_filter),
+                Employee.first_name.ilike(search_filter),
+                Employee.last_name.ilike(search_filter)
+            )
+        )
+
+    if role == "admin":
+        result = query.order_by(order_by).paginate(page=page, per_page=per_page, error_out=False)
+
+        user_data = [
+            {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "role": user.role,
+                "employee": employee.serialize if employee else []
+            }
+            for user, employee in result.items
+        ]
+
+        return jsonify({
+            "users": user_data,
+            "total": result.total,
+            "page": result.page,
+            "pages": result.pages,
+            "has_next": result.has_next,
+            "has_prev": result.has_prev
+        }), http_status_code.HTTP_200_OK
+
+    elif role == "employee":
+        result = query.filter(User.id == user_id).first()
+
+        if not result:
+            return jsonify({"error": "User not found"}), http_status_code.HTTP_404_NOT_FOUND
+
+        user, employee = result
+        user_data = {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "role": user.role,
+            "employee": employee.serialize if employee else []
+        }
+
+        return jsonify(user_data), http_status_code.HTTP_200_OK
+
+    return jsonify({"error": "Unauthorized access"}), http_status_code.HTTP_403_FORBIDDEN

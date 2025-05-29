@@ -1,0 +1,19 @@
+tags:
+  - Attendance
+summary: Employee check-in
+responses:
+  201:
+    description: Checked in successfully
+    examples:
+      application/json:
+        msg: Checked in successfully
+  400:
+    description: Already checked in today
+    examples:
+      application/json:
+        msg: Already checked in today
+  403:
+    description: Only employees can check in
+    examples:
+      application/json:
+        msg: Only employees can check in

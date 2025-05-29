@@ -1,0 +1,28 @@
+tags:
+  - Attendance
+summary: Delete an attendance record (Admin only)
+description: Only admin users are authorized to delete attendance records.
+parameters:
+  - in: formData
+    name: id
+    type: string
+    format: uuid
+    required: true
+    description: The UUID of the attendance record to delete
+    default: "e2a8d0b8-9d43-4e85-93ea-1c60f33e0e17"
+responses:
+  200:
+    description: Attendance deleted successfully
+    examples:
+      application/json:
+        msg: Attendance deleted successfully
+  404:
+    description: Attendance not found
+    examples:
+      application/json:
+        msg: Attendance not found
+  403:
+    description: Forbidden - Only admin users can delete records
+    examples:
+      application/json:
+        msg: Only admin users can access this endpoint

@@ -1,0 +1,35 @@
+tags:
+  - Authentication
+summary: Login and receive access/refresh tokens
+parameters:
+  - in: formData
+    name: identifier
+    type: string
+    required: true
+    description: Username or email
+  - in: formData
+    name: password
+    type: string
+    required: true
+    description: User password
+responses:
+  200:
+    description: Successfully logged in
+    examples:
+      application/json:
+        user:
+          username: admin
+          email: admin@admin.com
+          role: admin
+          access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1...
+          refresh_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1...
+  400:
+    description: Missing identifier or password
+    examples:
+      application/json:
+        message: Both identifier and password are required
+  404:
+    description: Invalid login credentials
+    examples:
+      application/json:
+        message: Invalid Username/Email or Password

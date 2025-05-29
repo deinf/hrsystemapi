@@ -1,0 +1,69 @@
+tags:
+  - User
+summary: Get user data (Admin sees all, Employee sees own)
+description: |
+  Returns user records.  
+  - **Admin** users can view all registered users with employee data.  
+  - **Employees** only see their own profile.
+parameters:
+  - in: formData
+    name: page
+    type: integer
+    required: false
+    default: 1
+    description: Page number for pagination (admin only)
+  - in: formData
+    name: per_page
+    type: integer
+    required: false
+    default: 10
+    description: Number of records per page (admin only)
+  - in: formData
+    name: sort
+    type: string
+    required: false
+    default: desc
+    enum: [asc, desc]
+    description: Sort direction (admin only)
+  - in: formData
+    name: sort_by
+    type: string
+    required: false
+    default: created_at
+    enum: [username, email, created_at, id]
+    description: Field to sort by (admin only)
+  - in: formData
+    name: search
+    type: string
+    required: false
+    description: Filter by username, email, first name, or last name (admin only)
+responses:
+  200:
+    description: User data retrieved successfully
+    examples:
+      application/json:
+        users:
+          - id: 1
+            username: johndoe
+            email: johndoe@example.com
+            role: employee
+            employee:
+              first_name: John
+              last_name: Doe
+              position: Developer
+              department_id: 3
+        total: 1
+        page: 1
+        pages: 1
+        has_next: false
+        has_prev: false
+  403:
+    description: Forbidden - Unauthorized access
+    examples:
+      application/json:
+        error: Unauthorized access
+  404:
+    description: User not found (employee only)
+    examples:
+      application/json:
+        error: User not found

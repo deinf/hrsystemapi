@@ -1,0 +1,26 @@
+tags:
+  - Payroll
+summary: Delete a payroll record (Admin only)
+description: Deletes a payroll record by ID. **Admin only**.
+parameters:
+  - in: formData
+    name: payroll_id
+    type: string
+    required: true
+    description: ID of the payroll record to delete
+responses:
+  200:
+    description: Payroll deleted successfully
+    examples:
+      application/json:
+        message: Data deleted
+  404:
+    description: Payroll not found
+    examples:
+      application/json:
+        message: Payroll data is not found
+  403:
+    description: Unauthorized access or employee invalid
+    examples:
+      application/json:
+        msg: Only admins can perform this action

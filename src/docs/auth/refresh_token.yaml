@@ -1,0 +1,14 @@
+tags:
+  - Authentication
+summary: Refresh access token if token expired
+responses:
+  200:
+    description: New access token generated
+    examples:
+      application/json:
+        access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1...
+  401:
+    description: Missing or invalid refresh token
+    examples:
+      application/json:
+        msg: Missing Authorization Header
