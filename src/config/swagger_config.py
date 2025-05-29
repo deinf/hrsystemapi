@@ -11,7 +11,7 @@ swagger_template = {
     },
     "host": "backend.dandevlabs.my.id", #activate when on server
     "basePath": "/api/v1",
-    "schemes": ["http", "https"],
+    "schemes": ["https"],
     "securityDefinitions": {
         "BearerAuth": {
             "type": "apiKey",
