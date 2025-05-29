@@ -1,0 +1,26 @@
+tags:
+  - User
+summary: Delete a user
+description: Deletes a user and marks the associated employee as deleted. **Admin only.**
+parameters:
+  - in: formData
+    name: id
+    type: string
+    required: true
+    description: User ID
+responses:
+  200:
+    description: User deleted successfully
+    examples:
+      application/json:
+        message: User deleted successfully
+  400:
+    description: Unable to process
+    examples:
+      application/json:
+        message: Unable to process
+  404:
+    description: User not found
+    examples:
+      application/json:
+        message: User not found
