@@ -52,7 +52,7 @@ def create_app(test_config=None):
     app.register_blueprint(blueprints.leave)
     app.register_blueprint(blueprints.performance)
     
-    
+    swagger_template["host"] = "backend.dandevlabs.my.id"
     Swagger(app, template=swagger_template, config=swagger_config)
     
     
