@@ -9,6 +9,7 @@ swagger_template = {
         },
         "version": "1.0.0"
     },
+    "host": "backend.dandevlabs.my.id", #activate when on server
     "basePath": "/api/v1",
     "schemes": ["http", "https"],
     "securityDefinitions": {
