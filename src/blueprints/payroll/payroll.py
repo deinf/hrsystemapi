@@ -7,7 +7,7 @@ from datetime import datetime
 from flasgger import swag_from
 
 
-payroll = Blueprint('payroll', __name__, url_prefix='/api/v1/payroll')
+payroll = Blueprint('payroll', __name__, url_prefix='/hrsystemapi/api/v1/payroll')
 
 @payroll.post("/add_payroll")
 @jwt_required()

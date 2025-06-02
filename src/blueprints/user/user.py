@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash
 from sqlalchemy import or_
 from flasgger import swag_from
 
-user = Blueprint('user', __name__, url_prefix='/api/v1/user')
+user = Blueprint('user', __name__, url_prefix='/hrsystemapi/api/v1/user')
 
 
 @user.post('/admin/create_user')

@@ -5,7 +5,7 @@ from src.utils.decorators import admin_only, prevent_mod_on_deleted_employee
 from src.constants import http_status_code
 from flasgger import swag_from
 
-performance = Blueprint("performance", __name__, url_prefix="/api/v1/performance")
+performance = Blueprint("performance", __name__, url_prefix="/hrsystemapi/api/v1/performance")
 
 @performance.post("/create_performance")
 @jwt_required()

@@ -10,7 +10,7 @@ from flasgger import swag_from
 import os
 load_dotenv()
 
-auth = Blueprint('auth', __name__, url_prefix='/api/v1/auth')
+auth = Blueprint('auth', __name__, url_prefix='/hrsystemapi/api/v1/auth')
 
 @auth.before_app_request
 def create_admin_user():

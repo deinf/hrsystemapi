@@ -5,7 +5,7 @@ from src.constants.constants import http_status_code
 from src.database.database import Department, db
 from flasgger import swag_from
 
-department = Blueprint('department', __name__, url_prefix='/api/v1/department')
+department = Blueprint('department', __name__, url_prefix='/hrsystemapi/api/v1/department')
 
 
 @department.post("/add_department")

@@ -7,7 +7,7 @@ from datetime import datetime, date
 from flasgger import swag_from
 
 
-attendance = Blueprint('attendance', __name__, url_prefix='/api/v1/attendance')
+attendance = Blueprint('attendance', __name__, url_prefix='/hrsystemapi/api/v1/attendance')
 
 @attendance.post("/checkin")
 @jwt_required()

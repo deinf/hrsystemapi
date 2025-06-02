@@ -7,7 +7,7 @@ from src.utils.decorators import admin_only, prevent_mod_on_deleted_employee
 from flasgger import swag_from
 
 
-leave = Blueprint("leave", __name__, url_prefix="/api/v1/leave")
+leave = Blueprint("leave", __name__, url_prefix="/hrsystemapi/api/v1/leave")
 
 @leave.post("/apply")
 @jwt_required()
