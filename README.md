@@ -132,14 +132,6 @@ Soon to be added
 
 ---
 
-## 📘 API Docs
-
-Swagger UI is available at:
-
-```
-http://localhost:5000/
-```
-
 ---
 
 ## 📬 Contact
@@ -150,8 +142,3 @@ Email: danangekasaputra@outlook.com
 
 ---
 
-Swagger UI is available at:
-
-```
-http://localhost:5000/
-```
