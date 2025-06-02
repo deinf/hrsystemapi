@@ -10,7 +10,7 @@ swagger_template = {
         "version": "1.0.0"
     },
     "host": "backend.dandevlabs.my.id", #activate when on server
-    "basePath": "/api/v1",
+    "basePath": "/hrsystemapi/api/v1",
     "schemes": ["https"],
     "securityDefinitions": {
         "BearerAuth": {
@@ -34,12 +34,12 @@ swagger_config = {
     "specs": [
         {
             "endpoint": 'apispec',
-            "route": '/apispec.json',
+            "route": '/hrsystemapi/apispec.json',
             "rule_filter": lambda rule: True,  # all in
             "model_filter": lambda tag: True,  # all in
         }
     ],
     "static_url_path": "/flasgger_static",
     "swagger_ui": True,
-    "specs_route": "/",
+    "specs_route": "/hrsystemapi/",
 }
